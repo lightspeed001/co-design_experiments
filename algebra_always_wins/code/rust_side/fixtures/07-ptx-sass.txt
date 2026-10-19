@@ -1,0 +1,16 @@
+// RUNG 7a — PTX (`convert-nvgpu-to-nvvm`, then `mlir-translate`).
+//
+// One instruction, 16x8x16 = 2,048 multiply-accumulates = 4,096 FLOPs, executed by one
+// warp. Everything above this line existed to decide which four registers go here.
+mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32
+    {%f1, %f2, %f3, %f4},    // D — 4 f32 accumulators per lane
+    {%r1, %r2, %r3, %r4},    // A — 8 bf16 per lane, packed as 4 x b32
+    {%r5, %r6},              // B — 4 bf16 per lane, packed as 2 x b32
+    {%f1, %f2, %f3, %f4};    // C — accumulate in place
+
+// RUNG 7b — SASS, as the profiler sees it (`cuobjdump -sass`).
+//
+// This is the name that shows up in the trace in the post's opening paragraph.
+// Note there is nothing left to lower. The ladder ends here, at a box that multiplies
+// 256 bf16 pairs per cycle and adds them into f32.
+HMMA.16816.F32.BF16 R8, R4, R8, R8 ;

@@ -1,0 +1,15 @@
+[package]
+name = "lower"
+version = "0.1.0"
+edition = "2021"
+description = "Walk one matmul down the ladder with Melior, printing the IR at every rung."
+
+# melior 0.28.x tracks upstream MLIR closely. mlir-sys 230.x means LLVM/MLIR 23.
+# Pin this pair, or your build will quietly drift to a different MLIR than the one
+# the pass names below were written against. That drift is section 3's point.
+[dependencies]
+melior = "0.28"   # pulls mlir-sys 230.x -> needs an LLVM 23 toolchain on the system
+
+[[bin]]
+name = "lower"
+path = "src/main.rs"

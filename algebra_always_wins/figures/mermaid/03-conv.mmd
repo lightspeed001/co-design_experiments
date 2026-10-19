@@ -1,0 +1,14 @@
+%% Figure 5 — one convolution, three normal forms. The substrate picks the winner,
+%% and it does not always pick the one with fewer multiplies.
+flowchart LR
+    C["conv2d<br/>N,H,W,C → K,R,S"]:::src
+    IG["implicit GEMM<br/>Toeplitz structure hidden in the index maps<br/><b>0 extra FLOPs, tensor cores fire</b>"]:::win
+    W["Winograd F(2×2,3×3)<br/>2.25× fewer multiplies<br/>+ transforms in and out"]:::mid
+    F["FFT<br/>O(n log n) multiplies<br/>+ complex data, + workspace"]:::lose
+    C -->|"the default in every vendor library"| IG
+    C -->|"when the tile is big enough to amortize the transform"| W
+    C -->|"almost never, on real hardware"| F
+    classDef src fill:#fdf6ec,stroke:#b45309,color:#191714
+    classDef win fill:#e8f0e6,stroke:#2f6b3a,color:#191714
+    classDef mid fill:#fdf0e6,stroke:#b45309,color:#191714
+    classDef lose fill:#f6e7ea,stroke:#9f1239,color:#191714

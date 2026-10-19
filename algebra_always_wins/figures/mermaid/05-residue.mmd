@@ -1,0 +1,21 @@
+%% Figure 7 — the residue, routed by *why* it refuses to dissolve. Three doors, and
+%% one honest admission. Placement in the post is deliberate: rigor, not hedge.
+flowchart TD
+    R["an op that is not a contraction"]:::src
+    Q1{"is it associative?"}:::q
+    Q2{"is the combine<br/>cheap and static?"}:::q
+    D1["<b>reassociate into a monoid</b><br/>softmax, cumsum, scan, logsumexp<br/><i>stays on the compute side</i>"]:::good
+    D2["<b>fuse</b><br/>elementwise, residual, norms<br/><i>attacks bytes, not FLOPs</i>"]:::good
+    D3["<b>schedule it</b><br/>top-k, gather, scatter<br/><i>it is now a systems problem</i>"]:::mid
+    D4["<b>it is control flow</b><br/>routing, dynamic shapes, sampling<br/><i>the graph breaks. this is the boundary.</i>"]:::bad
+    R --> Q1
+    Q1 -->|yes| Q2
+    Q1 -->|no| D3
+    Q2 -->|yes| D1
+    Q2 -->|"no — but the answer is a byte count"| D2
+    D3 --> D4
+    classDef src fill:#fdf6ec,stroke:#b45309,color:#191714
+    classDef q fill:#f2f2ee,stroke:#6f675c,color:#191714
+    classDef good fill:#e8f0e6,stroke:#2f6b3a,color:#191714
+    classDef mid fill:#fdf0e6,stroke:#b45309,color:#191714
+    classDef bad fill:#f6e7ea,stroke:#9f1239,color:#191714

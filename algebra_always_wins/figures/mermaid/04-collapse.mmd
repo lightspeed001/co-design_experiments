@@ -1,0 +1,36 @@
+%% Figure 6 — the empirical receipt. Whatever you write at level 0, this is what
+%% comes out of the compiler at level 4. The collapse into a handful of families is
+%% the universality class, seen from the outside.
+flowchart LR
+    subgraph "level 0 — what you wrote"
+        direction TB
+        a1[attention]:::src
+        a2[MLP / SwiGLU]:::src
+        a3[conv]:::src
+        a4[norm]:::src
+        a5[embedding]:::src
+        a6[MoE routing]:::src
+        a7[residual]:::src
+        a8[rope]:::src
+    end
+subgraph "level 4 — what runs"
+        direction TB
+        k1["<b>GEMM / GEMV</b><br/>tensor-core, bandwidth-bound at B=1"]:::fam
+        k2["<b>fused elementwise + reduction</b><br/>softmax, norms, SiLU, residual"]:::fam
+        k3["<b>copy / gather</b><br/>embedding, KV write"]:::fam
+        k4["<b>sort / top-k</b><br/>routing, sampling"]:::fam
+        k5["<b>collective</b><br/>all-reduce, all-gather"]:::fam
+    end
+    a1 --> k1
+    a1 --> k2
+    a2 --> k1
+    a2 --> k2
+    a3 --> k1
+    a4 --> k2
+    a5 --> k3
+    a6 --> k4
+    a6 --> k5
+    a7 --> k2
+    a8 --> k2
+    classDef src fill:#fdf6ec,stroke:#b45309,color:#191714
+    classDef fam fill:#eef3f7,stroke:#1d4e6f,color:#191714

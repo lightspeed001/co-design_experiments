@@ -1,0 +1,32 @@
+%% Figure 4 — FlashAttention as a dataflow. The monoid is the whole trick: max and
+%% log-sum-exp are associative, so the two GEMMs can be interleaved block by block and
+%% the N^2 score matrix never has to exist.
+flowchart LR
+    Q["Q tile<br/>BLOCK_M × d"]:::q
+    K["K tile<br/>BLOCK_N × d"]:::k
+    V["V tile<br/>BLOCK_N × d"]:::v
+
+    S["S = Q·Kᵀ<br/><i>GEMM #1</i><br/>BLOCK_M × BLOCK_N"]:::gemm
+    M["online softmax<br/>(m, l, acc) ← combine(…)"]:::mono
+    P["P = exp(S − m)<br/>unnormalized probs"]:::act
+    A["acc ← acc·α + P·V<br/><i>GEMM #2, accumulate</i>"]:::gemm
+    O["out = acc / l<br/>one division at the end"]:::out
+
+    Q --> S
+    K --> S
+    S --> M --> P --> A
+    V --> A
+    A -->|"next K/V block<br/>(same algebra)"| S
+    A --> O
+
+    subgraph mono["the monoid — and therefore the tiling"]
+        M
+    end
+
+    classDef q fill:#eef3f7,stroke:#1d4e6f,color:#191714
+    classDef k fill:#eef3f7,stroke:#1d4e6f,color:#191714
+    classDef v fill:#eef3f7,stroke:#1d4e6f,color:#191714
+    classDef gemm fill:#fdf0e6,stroke:#b45309,color:#191714
+    classDef mono fill:#fff4e0,stroke:#9f1239,color:#191714
+    classDef act fill:#fdf0e6,stroke:#b45309,color:#191714
+    classDef out fill:#f2f2ee,stroke:#6f675c,color:#191714

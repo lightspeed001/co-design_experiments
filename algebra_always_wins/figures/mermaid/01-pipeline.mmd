@@ -1,0 +1,31 @@
+%% Figure 2 — the descent as a pipeline. Each arrow is one or more passes; each node
+%% names the vocabulary that survives it. Read top to bottom, then left to right.
+flowchart TD
+    A["<b>PyTorch module</b><br/>32L · 4096d · heads · residuals"]:::l0
+    B["<b>aten / decomposed graph</b><br/>mm · bmm · softmax · permute<br/><i>83 ops for one block</i>"]:::l1
+    C["<b>StableHLO</b><br/>dot_general · reduce · exp"]:::l1
+    D["<b>linalg.matmul</b><br/>a named op: it promises what it computes"]:::l2
+    E["<b>linalg.generic</b><br/>3 affine maps · 1 reduction iterator<br/>body: a*b+acc"]:::l2
+    F["<b>memref + scf.for</b><br/>induction variables · addresses"]:::l3
+    G["<b>vector.contract</b><br/>16×16×16 · fixed operand shape"]:::l4
+    H["<b>nvgpu.mma.sync</b><br/>m16n8k16 · fragments, not matrices"]:::l4
+    I["<b>LLVM dialect → PTX</b><br/>mma.sync.aligned.m16n8k16"]:::l5
+    J["<b>SASS</b><br/>HMMA.16816.F32"]:::l6
+
+    A -->|"torch.export<br/>+ decompose"| B
+    B -->|"torch-mlir"| C
+    C -->|"stablehlo-legalize-to-linalg"| D
+    D -->|"linalg-generalize-named-ops"| E
+    E -->|"one-shot-bufferize"| F
+    F -->|"tile + vectorize<br/>(a schedule, not a flag)"| G
+    G -->|"convert-vector-to-gpu"| H
+    H -->|"convert-nvgpu-to-nvvm"| I
+    I -->|"llc -march=nvptx64<br/>ptxas"| J
+
+    classDef l0 fill:#fdf6ec,stroke:#b45309,color:#191714
+    classDef l1 fill:#fbf3e6,stroke:#b45309,color:#191714
+    classDef l2 fill:#f7ece0,stroke:#b45309,color:#191714
+    classDef l3 fill:#f4e6de,stroke:#9f1239,color:#191714
+    classDef l4 fill:#f0e2df,stroke:#9f1239,color:#191714
+    classDef l5 fill:#e7e9ee,stroke:#1d4e6f,color:#191714
+    classDef l6 fill:#dfe4ec,stroke:#1d4e6f,color:#191714
