@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 430" role="img" aria-labelledby="title desc">
+  <title id="title">Implemented Toy8 v1 compiler pipeline</title>
+  <desc id="desc">The restricted Toy8 source is parsed and checked in Rust, represented and verified as MLIR using Melior, lowered by a custom Rust backend to Tiny8 instructions, encoded into a 256-word ROM, and checked on the existing Tiny8 CPU RTL with Icarus Verilog.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#52647a" />
+    </marker>
+  </defs>
+  <rect width="1480" height="430" rx="18" fill="#f8fafc" />
+  <text x="30" y="42" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#10243a">Tiny Systems, End to End · Foundations 2</text>
+  <text x="30" y="69" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#52647a">Implemented Rust/Melior compiler for the restricted Toy8 v1 sum language — not an RTL generator.</text>
+
+  <g stroke="#52647a" stroke-width="2.2" fill="none" marker-end="url(#arrow)">
+    <line x1="170" y1="173" x2="180" y2="173" />
+    <line x1="330" y1="173" x2="340" y2="173" />
+    <line x1="490" y1="173" x2="500" y2="173" />
+    <line x1="650" y1="173" x2="660" y2="173" />
+    <line x1="810" y1="173" x2="820" y2="173" />
+    <line x1="970" y1="173" x2="980" y2="173" />
+    <line x1="1130" y1="173" x2="1140" y2="173" />
+    <line x1="1290" y1="173" x2="1300" y2="173" />
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <g>
+      <rect x="24" y="112" width="146" height="122" rx="13" fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.5" />
+      <circle cx="45" cy="134" r="12" fill="#4f46e5" /><text x="45" y="138" font-size="11" font-weight="700" fill="#fff">1</text>
+      <text x="97" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="97">Toy8</tspan><tspan x="97" dy="20">source</tspan></text>
+      <text x="97" y="214" font-size="11" fill="#52647a">main() -&gt; u8</text>
+    </g>
+    <g>
+      <rect x="184" y="112" width="146" height="122" rx="13" fill="#ecfeff" stroke="#67e8f9" stroke-width="1.5" />
+      <circle cx="205" cy="134" r="12" fill="#0891b2" /><text x="205" y="138" font-size="11" font-weight="700" fill="#fff">2</text>
+      <text x="257" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="257">Rust lexer</tspan><tspan x="257" dy="20">+ parser</tspan></text>
+      <text x="257" y="214" font-size="11" fill="#52647a">source diagnostics</text>
+    </g>
+    <g>
+      <rect x="344" y="112" width="146" height="122" rx="13" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" />
+      <circle cx="365" cy="134" r="12" fill="#2563eb" /><text x="365" y="138" font-size="11" font-weight="700" fill="#fff">3</text>
+      <text x="417" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="417">Typed</tspan><tspan x="417" dy="20">v1 AST</tspan></text>
+      <text x="417" y="214" font-size="11" fill="#52647a">u8 literal sum</text>
+    </g>
+    <g>
+      <rect x="504" y="112" width="146" height="122" rx="13" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" />
+      <circle cx="525" cy="134" r="12" fill="#16a34a" /><text x="525" y="138" font-size="11" font-weight="700" fill="#fff">4</text>
+      <text x="577" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="577">Melior</tspan><tspan x="577" dy="20">builds MLIR</tspan></text>
+      <text x="577" y="214" font-size="11" fill="#52647a">func + arith i8</text>
+    </g>
+    <g>
+      <rect x="664" y="112" width="146" height="122" rx="13" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5" />
+      <circle cx="685" cy="134" r="12" fill="#ea580c" /><text x="685" y="138" font-size="11" font-weight="700" fill="#fff">5</text>
+      <text x="737" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="737">MLIR</tspan><tspan x="737" dy="20">verification</tspan></text>
+      <text x="737" y="214" font-size="11" fill="#52647a">module verifier</text>
+    </g>
+    <g>
+      <rect x="824" y="112" width="146" height="122" rx="13" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5" />
+      <circle cx="845" cy="134" r="12" fill="#7c3aed" /><text x="845" y="138" font-size="11" font-weight="700" fill="#fff">6</text>
+      <text x="897" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="897">Rust Tiny8</tspan><tspan x="897" dy="20">backend</tspan></text>
+      <text x="897" y="214" font-size="11" fill="#52647a">supported ops only</text>
+    </g>
+    <g>
+      <rect x="984" y="112" width="146" height="122" rx="13" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" />
+      <circle cx="1005" cy="134" r="12" fill="#475569" /><text x="1005" y="138" font-size="11" font-weight="700" fill="#fff">7</text>
+      <text x="1057" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="1057">16-bit</tspan><tspan x="1057" dy="20">encoder</tspan></text>
+      <text x="1057" y="214" font-size="11" fill="#52647a">Tiny8 instruction words</text>
+    </g>
+    <g>
+      <rect x="1144" y="112" width="146" height="122" rx="13" fill="#fefce8" stroke="#fde047" stroke-width="1.5" />
+      <circle cx="1165" cy="134" r="12" fill="#ca8a04" /><text x="1165" y="138" font-size="11" font-weight="700" fill="#fff">8</text>
+      <text x="1217" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="1217">256-word</tspan><tspan x="1217" dy="20">ROM image</tspan></text>
+      <text x="1217" y="214" font-size="11" fill="#52647a">.hex + .asm</text>
+    </g>
+    <g>
+      <rect x="1304" y="112" width="146" height="122" rx="13" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5" />
+      <circle cx="1325" cy="134" r="12" fill="#059669" /><text x="1325" y="138" font-size="11" font-weight="700" fill="#fff">9</text>
+      <text x="1377" y="166" font-size="15" font-weight="700" fill="#13263c"><tspan x="1377">CPU RTL</tspan><tspan x="1377" dy="20">simulation</tspan></text>
+      <text x="1377" y="214" font-size="11" fill="#52647a">Icarus Verilog</text>
+    </g>
+  </g>
+
+  <rect x="30" y="274" width="1420" height="57" rx="11" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+  <text x="48" y="298" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#13263c">Checked on the CPU:</text>
+  <text x="182" y="298" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#334155">MEM[0x10] return byte, accumulator, halt state, and halt PC. Unsupported syntax/IR and invalid MLIR fail explicitly.</text>
+  <text x="48" y="319" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#52647a">No optimization pass in v1: keep each arith.addi visible for the selector. No variables, control flow, accelerator call, synthesis, or FPGA result.</text>
+  <text x="740" y="385" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#52647a">Tested toolchain: Rust 1.88.0 · Melior 0.27.0 · LLVM/MLIR 22.1.8 · Icarus Verilog 12.0</text>
+</svg>

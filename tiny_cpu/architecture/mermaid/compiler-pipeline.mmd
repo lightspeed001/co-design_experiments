@@ -1,0 +1,14 @@
+flowchart LR
+    SRC["Toy8 source<br/>main() -> u8"] --> FRONT["Rust lexer + parser<br/>source-spanned diagnostics"]
+    FRONT --> AST["Typed v1 AST<br/>u8 literal sum"]
+    AST --> MLIR["Melior builds<br/>func + arith i8 IR"]
+    MLIR --> VERIFY["MLIR module verifier"]
+    VERIFY --> SELECT["Rust backend walks<br/>verified MLIR operations"]
+    SELECT --> ENCODE["Tiny8 selector +<br/>16-bit word encoder"]
+    ENCODE --> ROM["256-word ROM image<br/>.hex + assembly listing"]
+    ROM --> CPU["Icarus testbench<br/>Tiny8 CPU RTL"]
+    CPU --> CHECK["Check MEM[0x10], A,<br/>halt state / PC"]
+
+    FRONT -. "bad syntax / u8 literal" .-> ERROR["Source diagnostic"]
+    SELECT -. "unsupported MLIR operation" .-> ERROR
+    VERIFY -. "invalid IR" .-> ERROR

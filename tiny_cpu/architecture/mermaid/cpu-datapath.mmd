@@ -1,0 +1,24 @@
+flowchart LR
+    PC["PC<br/>8-bit instruction address"] -->|address| IMEM["Instruction memory<br/>256 × 16"]
+    IMEM -->|16-bit instruction| DEC["Decode & control"]
+    DEC -->|opcode / control| CTRL["Control signals"]
+    DEC -->|operand| OP["8-bit operand"]
+
+    A["Accumulator A<br/>8 bits"] --> ALU["ALU<br/>8-bit addition"]
+    OP -->|immediate| ALU
+    DMEM["Data memory<br/>256 × 8"] -->|read byte| ALU
+    ALU -->|sum| WB["Accumulator input select"]
+    DMEM -->|load value| WB
+    OP -->|LDI value| WB
+    WB --> A
+
+    OP -->|address for LDA / STA / ADD| DMEM
+    A -->|store value| DMEM
+    CTRL -->|write enable| DMEM
+
+    PC --> NEXT["Next-PC select"]
+    OP -->|jump target| NEXT
+    A --> ZERO["A == 0?"]
+    ZERO --> NEXT
+    CTRL --> NEXT
+    NEXT --> PC

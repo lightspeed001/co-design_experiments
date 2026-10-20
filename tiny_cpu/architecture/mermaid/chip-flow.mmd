@@ -1,0 +1,11 @@
+flowchart LR
+    R["Requirements & behavior"] --> A["Architecture / ISA"]
+    A --> M["Microarchitecture"]
+    M --> RTL["RTL"]
+    RTL --> V["Simulation & verification"]
+    RTL --> S["Logic synthesis"]
+    S --> P["Place & route"]
+    P --> Q["Timing and physical checks"]
+    Q --> G["Layout database, e.g. GDSII"]
+    V -. "bug found: revise" .-> RTL
+    Q -. "constraint violation: iterate" .-> RTL

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+  <title id="title">A simplified digital chip design flow</title>
+  <desc id="desc">Requirements lead to architecture and ISA, microarchitecture, and RTL. RTL feeds verification and logic synthesis. Synthesis feeds place and route, timing and physical checks, and layout handoff. Verification and implementation findings can trigger a revision to RTL.</desc>
+  <rect width="1200" height="430" rx="18" fill="#f8fafc" />
+  <text x="32" y="38" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#10243a">A simplified digital chip design flow</text>
+  <text x="32" y="62" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#52647a">Verification and implementation provide different evidence—and can send a design back for revision.</text>
+
+  <!-- Forward flow. Connectors are drawn first so they sit behind the stage cards. -->
+  <line x1="177" y1="156" x2="190" y2="156" stroke="#52647a" stroke-width="2.2" />
+  <line x1="343" y1="156" x2="356" y2="156" stroke="#52647a" stroke-width="2.2" />
+  <line x1="509" y1="156" x2="522" y2="156" stroke="#52647a" stroke-width="2.2" />
+  <line x1="675" y1="156" x2="688" y2="156" stroke="#52647a" stroke-width="2.2" />
+  <line x1="841" y1="156" x2="854" y2="156" stroke="#52647a" stroke-width="2.2" />
+  <line x1="1007" y1="156" x2="1020" y2="156" stroke="#52647a" stroke-width="2.2" />
+  <line x1="602" y1="210" x2="602" y2="266" stroke="#52647a" stroke-width="2.2" />
+  <line x1="1100" y1="210" x2="1100" y2="266" stroke="#52647a" stroke-width="2.2" />
+  <polygon points="198,156 190,152 190,160" fill="#52647a" />
+  <polygon points="364,156 356,152 356,160" fill="#52647a" />
+  <polygon points="530,156 522,152 522,160" fill="#52647a" />
+  <polygon points="696,156 688,152 688,160" fill="#52647a" />
+  <polygon points="862,156 854,152 854,160" fill="#52647a" />
+  <polygon points="1028,156 1020,152 1020,160" fill="#52647a" />
+  <polygon points="602,279 597,267 607,267" fill="#52647a" />
+  <polygon points="1100,279 1095,267 1105,267" fill="#52647a" />
+  <!-- A verification or implementation finding can trigger an RTL revision. -->
+  <rect x="674" y="318.5" width="61" height="3" fill="#c2410c" />
+  <rect x="733.5" y="240" width="3" height="80" fill="#c2410c" />
+  <rect x="663" y="238.5" width="72" height="3" fill="#c2410c" />
+  <rect x="661.5" y="222" width="3" height="18" fill="#c2410c" />
+  <polygon points="663,210 658,222 668,222" fill="#c2410c" />
+  <!-- Timing/physical findings can also send the design back to RTL. -->
+  <rect x="602" y="80" width="498" height="3" fill="#c2410c" />
+  <rect x="1098.5" y="82" width="3" height="20" fill="#c2410c" />
+  <rect x="600.5" y="82" width="3" height="5" fill="#c2410c" />
+  <polygon points="602,99 597,87 607,87" fill="#c2410c" />
+
+  <!-- Top-row stages. -->
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <g>
+      <rect x="32" y="102" width="145" height="108" rx="13" fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.5" />
+      <circle cx="52" cy="123" r="12" fill="#4f46e5" /><text x="52" y="127" font-size="11" font-weight="700" fill="#ffffff">1</text>
+      <text x="105" y="151" font-size="15" font-weight="650" fill="#13263c"><tspan x="105">Requirements</tspan><tspan x="105" dy="21">&amp; behavior</tspan></text>
+    </g>
+    <g>
+      <rect x="198" y="102" width="145" height="108" rx="13" fill="#ecfeff" stroke="#67e8f9" stroke-width="1.5" />
+      <circle cx="218" cy="123" r="12" fill="#0891b2" /><text x="218" y="127" font-size="11" font-weight="700" fill="#ffffff">2</text>
+      <text x="271" y="151" font-size="15" font-weight="650" fill="#13263c"><tspan x="271">Architecture</tspan><tspan x="271" dy="21">and ISA</tspan></text>
+    </g>
+    <g>
+      <rect x="364" y="102" width="145" height="108" rx="13" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" />
+      <circle cx="384" cy="123" r="12" fill="#2563eb" /><text x="384" y="127" font-size="11" font-weight="700" fill="#ffffff">3</text>
+      <text x="437" y="162" font-size="14" font-weight="650" fill="#13263c">Microarchitecture</text>
+    </g>
+    <g>
+      <rect x="530" y="102" width="145" height="108" rx="13" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" />
+      <circle cx="550" cy="123" r="12" fill="#16a34a" /><text x="550" y="127" font-size="11" font-weight="700" fill="#ffffff">4</text>
+      <text x="603" y="163" font-size="15" font-weight="650" fill="#13263c">RTL</text>
+    </g>
+    <g>
+      <rect x="696" y="102" width="145" height="108" rx="13" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5" />
+      <circle cx="716" cy="123" r="12" fill="#ea580c" /><text x="716" y="127" font-size="11" font-weight="700" fill="#ffffff">5</text>
+      <text x="769" y="151" font-size="15" font-weight="650" fill="#13263c"><tspan x="769">Logic</tspan><tspan x="769" dy="21">synthesis</tspan></text>
+    </g>
+    <g>
+      <rect x="862" y="102" width="145" height="108" rx="13" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5" />
+      <circle cx="882" cy="123" r="12" fill="#7c3aed" /><text x="882" y="127" font-size="11" font-weight="700" fill="#ffffff">6</text>
+      <text x="935" y="151" font-size="15" font-weight="650" fill="#13263c"><tspan x="935">Place</tspan><tspan x="935" dy="21">&amp; route</tspan></text>
+    </g>
+    <g>
+      <rect x="1028" y="102" width="145" height="108" rx="13" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" />
+      <circle cx="1048" cy="123" r="12" fill="#475569" /><text x="1048" y="127" font-size="11" font-weight="700" fill="#ffffff">7</text>
+      <text x="1101" y="151" font-size="14" font-weight="650" fill="#13263c"><tspan x="1101">Timing &amp;</tspan><tspan x="1101" dy="21">physical checks</tspan></text>
+    </g>
+  </g>
+
+  <!-- Secondary workstreams. -->
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <rect x="530" y="280" width="145" height="80" rx="13" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" />
+    <text x="602.5" y="314" font-size="15" font-weight="650" fill="#13263c"><tspan x="602.5">Simulation &amp;</tspan><tspan x="602.5" dy="21">verification</tspan></text>
+    <rect x="1028" y="280" width="145" height="80" rx="13" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="1100.5" y="314" font-size="15" font-weight="650" fill="#13263c"><tspan x="1100.5">Layout database</tspan><tspan x="1100.5" dy="21">(handoff)</tspan></text>
+  </g>
+  <text x="600" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#52647a">Verification finds bugs; timing or physical checks find constraint violations. Iterate on the design as needed.</text>
+</svg>
