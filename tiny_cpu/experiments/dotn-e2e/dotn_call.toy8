@@ -1,0 +1,11 @@
+// Restricted source program accepted by dotn_source_compiler.py.
+// Declarations provide static u8 input arrays and a three-byte result buffer.
+let A: [u8; 4] = [1, 2, 3, 4];
+let B: [u8; 4] = [5, 6, 7, 8];
+let result: [u8; 3] = [0, 0, 0];
+
+// The compiler lowers this target-specific operation to the DMA descriptor ABI.
+dot_u8_into(A, B, len=4, dst=result);
+
+// Compile-time check plus generated CPU-side result check.
+expect result == [0x46, 0x00, 0x00];
