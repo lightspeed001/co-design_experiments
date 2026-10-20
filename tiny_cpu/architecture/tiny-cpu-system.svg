@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 460" role="img" aria-labelledby="title desc">
+  <title id="title">Tiny CPU system with separate instruction and data memories</title>
+  <desc id="desc">An 8-bit accumulator CPU fetches 16-bit instruction words from a separate 256-word instruction memory and reads or writes bytes in a separate 256-byte data memory. Memory reads are combinational; data stores commit on the active clock edge.</desc>
+  <rect width="1240" height="460" rx="18" fill="#f8fafc" />
+  <text x="32" y="40" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#10243a">The machine contract: CPU, instruction memory, and data memory</text>
+  <text x="32" y="65" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#52647a">Separate Harvard-style address spaces keep instruction fetch distinct from data loads and stores.</text>
+
+  <!-- Instruction memory. -->
+  <rect x="45" y="145" width="250" height="135" rx="14" fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.7" />
+  <text x="170" y="182" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#13263c" text-anchor="middle">Instruction memory</text>
+  <text x="170" y="212" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#52647a" text-anchor="middle"><tspan x="170">256 × 16-bit words</tspan><tspan x="170" dy="21">combinational read</tspan></text>
+
+  <!-- CPU core. -->
+  <rect x="455" y="105" width="360" height="215" rx="16" fill="#fff7ed" stroke="#fdba74" stroke-width="1.8" />
+  <text x="635" y="145" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#13263c" text-anchor="middle">Tiny CPU core</text>
+  <rect x="505" y="180" width="105" height="75" rx="10" fill="#ffffff" stroke="#fed7aa" stroke-width="1.3" />
+  <text x="557" y="210" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#13263c" text-anchor="middle">PC</text>
+  <text x="557" y="233" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#52647a" text-anchor="middle">8-bit word address</text>
+  <rect x="650" y="180" width="115" height="75" rx="10" fill="#ffffff" stroke="#fed7aa" stroke-width="1.3" />
+  <text x="707" y="210" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#13263c" text-anchor="middle">A + ALU</text>
+  <text x="707" y="233" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#52647a" text-anchor="middle">8-bit arithmetic</text>
+  <text x="635" y="289" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#52647a" text-anchor="middle">decode • next-PC • memory control • HALT</text>
+
+  <!-- Data memory. -->
+  <rect x="940" y="145" width="250" height="135" rx="14" fill="#ecfeff" stroke="#67e8f9" stroke-width="1.7" />
+  <text x="1065" y="182" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#13263c" text-anchor="middle">Data memory</text>
+  <text x="1065" y="212" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#52647a" text-anchor="middle"><tspan x="1065">256 × 8-bit bytes</tspan><tspan x="1065" dy="21">read combinational</tspan><tspan x="1065" dy="19">write at clock edge</tspan></text>
+
+  <!-- Instruction fetch: PC address moves left; instruction word returns right. -->
+  <line x1="455" y1="190" x2="307" y2="190" stroke="#52647a" stroke-width="2.2" />
+  <polygon points="295,190 307,184 307,196" fill="#52647a" />
+  <text x="375" y="179" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#43556b" text-anchor="middle">imem_addr: PC</text>
+  <line x1="295" y1="245" x2="443" y2="245" stroke="#52647a" stroke-width="2.2" />
+  <polygon points="455,245 443,239 443,251" fill="#52647a" />
+  <text x="375" y="265" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#43556b" text-anchor="middle">imem_rdata: 16-bit word</text>
+
+  <!-- Data path: address/write controls move right; read data returns to the ALU. -->
+  <line x1="815" y1="190" x2="928" y2="190" stroke="#7c3aed" stroke-width="2.2" />
+  <polygon points="940,190 928,184 928,196" fill="#7c3aed" />
+  <text x="872" y="179" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" fill="#43556b" text-anchor="middle">address / we / wdata</text>
+  <line x1="940" y1="245" x2="827" y2="245" stroke="#0891b2" stroke-width="2.2" />
+  <polygon points="815,245 827,239 827,251" fill="#0891b2" />
+  <text x="872" y="265" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#43556b" text-anchor="middle">dmem_rdata: 8-bit byte</text>
+
+  <rect x="45" y="355" width="1150" height="64" rx="12" fill="#ffffff" stroke="#cbd5e1" />
+  <text x="68" y="383" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#334155">Teaching timing: instruction and data reads are combinational; the data-memory model captures a store on the rising edge.</text>
+  <text x="68" y="404" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#334155">The two memories use independent 8-bit address spaces. `PC = 0x10` selects instruction word 16, not data byte 0x10.</text>
+</svg>

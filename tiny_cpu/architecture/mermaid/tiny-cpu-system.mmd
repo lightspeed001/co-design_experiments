@@ -1,0 +1,19 @@
+flowchart LR
+    IMEM["Instruction memory<br/>256 × 16"]
+    DMEM["Data memory<br/>256 × 8"]
+
+    subgraph CPU["Tiny CPU core"]
+        PC["PC<br/>8-bit word address"]
+        DEC["Decode + control"]
+        ACC["Accumulator A<br/>8 bits"]
+        ALU["ALU<br/>8-bit add"]
+        ACC --> ALU
+        ALU --> ACC
+    end
+
+    PC -->|fetch address| IMEM
+    IMEM -->|instruction word| DEC
+    DEC -->|operand / ALU control| ALU
+    DEC -->|next PC / halt control| PC
+    DEC -->|data address / write enable / write byte| DMEM
+    DMEM -->|read byte| ALU
