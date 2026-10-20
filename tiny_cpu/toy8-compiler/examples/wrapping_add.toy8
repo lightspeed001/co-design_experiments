@@ -1,0 +1,4 @@
+// Toy8 u8 addition wraps modulo 256.
+fn main() -> u8 {
+    return 255 + 1;
+}

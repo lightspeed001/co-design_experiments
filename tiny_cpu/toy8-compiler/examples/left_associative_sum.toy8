@@ -1,0 +1,4 @@
+// Sums lower from left to right using accumulator plus-immediate instructions.
+fn main() -> u8 {
+    return 10 + 20 + 30 + 40;
+}

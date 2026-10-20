@@ -1,0 +1,4 @@
+// The Foundations 2 smoke program.
+fn main() -> u8 {
+    return 2 + 3;
+}

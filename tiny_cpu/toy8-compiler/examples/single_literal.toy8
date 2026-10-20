@@ -1,0 +1,4 @@
+// A one-literal function also needs no ADDI.
+fn main() -> u8 {
+    return 0xA5;
+}

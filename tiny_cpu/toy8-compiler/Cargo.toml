@@ -1,0 +1,10 @@
+[package]
+name = "toy8-compiler"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+description = "A small Rust/Melior compiler from Toy8 expressions to Tiny8 instructions"
+
+[dependencies]
+melior = "=0.27.0"
+mlir-sys = "=220.0.1"
