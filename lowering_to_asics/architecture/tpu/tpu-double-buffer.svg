@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="Helvetica,Arial,sans-serif">
+  <rect width="900" height="420" fill="#ffffff"/>
+  <text x="30" y="38" font-size="22" font-weight="bold" fill="#1a1f36">Double-buffering the K loop: paying the DMA with someone else's FLOPs</text>
+
+  <!-- naive timeline -->
+  <text x="30" y="90" font-size="14" font-weight="bold" fill="#1a1f36">Single buffer (what post 1.2's dump shows)</text>
+  <g>
+    <rect x="30" y="110" width="120" height="36" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="90" y="133" font-size="11" text-anchor="middle" fill="#1a1f36">DMA k=0</text>
+    <rect x="155" y="110" width="120" height="36" rx="6" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+    <text x="215" y="133" font-size="11" text-anchor="middle" fill="#1a1f36">mxm k=0</text>
+    <rect x="280" y="110" width="120" height="36" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="340" y="133" font-size="11" text-anchor="middle" fill="#1a1f36">DMA k=1</text>
+    <rect x="405" y="110" width="120" height="36" rx="6" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+    <text x="465" y="133" font-size="11" text-anchor="middle" fill="#1a1f36">mxm k=1</text>
+    <rect x="530" y="110" width="120" height="36" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="590" y="133" font-size="11" text-anchor="middle" fill="#1a1f36">DMA k=2</text>
+    <rect x="655" y="110" width="120" height="36" rx="6" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+    <text x="715" y="133" font-size="11" text-anchor="middle" fill="#1a1f36">mxm k=2</text>
+  </g>
+  <text x="30" y="175" font-size="12" fill="#5b6472">The MXU idles during every orange bar. At tile granularity that is often half the wall clock.</text>
+
+  <!-- double-buffered timeline -->
+  <text x="30" y="230" font-size="14" font-weight="bold" fill="#1a1f36">Double buffer (what production Mosaic schedules with tpu_dma_start/wait)</text>
+  <g>
+    <rect x="30" y="250" width="90" height="36" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="75" y="273" font-size="11" text-anchor="middle" fill="#1a1f36">prologue</text>
+    <rect x="125" y="250" width="160" height="36" rx="6" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+    <text x="205" y="273" font-size="11" text-anchor="middle" fill="#1a1f36">mxm k=0</text>
+    <rect x="125" y="292" width="160" height="36" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="205" y="315" font-size="11" text-anchor="middle" fill="#1a1f36">DMA k=1 (into the other buffer)</text>
+    <rect x="290" y="250" width="160" height="36" rx="6" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+    <text x="370" y="273" font-size="11" text-anchor="middle" fill="#1a1f36">mxm k=1</text>
+    <rect x="290" y="292" width="160" height="36" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="370" y="315" font-size="11" text-anchor="middle" fill="#1a1f36">DMA k=2</text>
+    <rect x="455" y="250" width="160" height="36" rx="6" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+    <text x="535" y="273" font-size="11" text-anchor="middle" fill="#1a1f36">mxm k=2</text>
+    <rect x="620" y="250" width="110" height="36" rx="6" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+    <text x="675" y="273" font-size="11" text-anchor="middle" fill="#1a1f36">writeback</text>
+  </g>
+  <text x="30" y="360" font-size="12" fill="#5b6472">Semaphores make the orange bars legal; the compiler owns the schedule. This is archetype-A memory management in one picture.</text>
+</svg>

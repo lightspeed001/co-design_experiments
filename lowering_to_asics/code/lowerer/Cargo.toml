@@ -1,0 +1,14 @@
+[package]
+name = "tinymoe-lowerer"
+version = "0.1.0"
+edition = "2021"
+description = "Post 0.1 companion: lower the TinyMoE expert GEMM from tile.* IR to scf/arith/memref in Rust via Melior"
+
+[dependencies]
+# Melior = safe Rust bindings over the MLIR C API. 0.27 needs LLVM/MLIR 23
+# installed on the system (see README.md).
+melior = "0.27"
+
+# NOTE: no CUDA, no C++, no build.rs. Everything below is pure Rust against
+# MLIR's C API. Where C++/CUDA must enter the *series*, post 0.1 explains why
+# (vendor toolchains, ODS dialect definitions, GPU execution backends).

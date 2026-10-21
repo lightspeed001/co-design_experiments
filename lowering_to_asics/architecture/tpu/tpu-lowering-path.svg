@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" font-family="Helvetica,Arial,sans-serif">
+  <rect width="900" height="540" fill="#ffffff"/>
+  <text x="30" y="38" font-size="22" font-weight="bold" fill="#1a1f36">Two official paths down the stack — and the one we walk in this series</text>
+
+  <!-- Lane 1: XLA -->
+  <text x="30" y="84" font-size="15" font-weight="bold" fill="#1a1f36">Path A — whole-graph: XLA</text>
+  <rect x="30" y="100" width="130" height="52" rx="8" fill="#f1f3f5" stroke="#5b6472" stroke-width="2"/>
+  <text x="95" y="122" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">JAX / PyTorch</text>
+  <text x="95" y="140" font-size="11" text-anchor="middle" fill="#5b6472">TinyMoE graph</text>
+  <polygon points="168,126 152,118 152,134" fill="#5b6472"/>
+  <rect x="175" y="100" width="130" height="52" rx="8" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+  <text x="240" y="122" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">StableHLO</text>
+  <text x="240" y="140" font-size="11" text-anchor="middle" fill="#5b6472">portable graph IR</text>
+  <polygon points="313,126 297,118 297,134" fill="#5b6472"/>
+  <rect x="320" y="100" width="180" height="52" rx="8" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="2"/>
+  <text x="410" y="122" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">XLA optimizer</text>
+  <text x="410" y="140" font-size="10" text-anchor="middle" fill="#5b6472">layout · tiling · fusion · memory plan · pipeline</text>
+  <polygon points="508,126 492,118 492,134" fill="#5b6472"/>
+  <rect x="515" y="100" width="150" height="52" rx="8" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+  <text x="590" y="122" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">LLO / Mosaic</text>
+  <text x="590" y="140" font-size="11" text-anchor="middle" fill="#5b6472">TPU-shaped ops</text>
+  <polygon points="673,126 657,118 657,134" fill="#5b6472"/>
+  <rect x="680" y="100" width="150" height="52" rx="8" fill="#f1f3f5" stroke="#5b6472" stroke-width="2"/>
+  <text x="755" y="122" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">TPU binary</text>
+  <text x="755" y="140" font-size="11" text-anchor="middle" fill="#5b6472">via PJRT + libtpu</text>
+
+  <!-- Lane 2: Pallas -->
+  <text x="30" y="210" font-size="15" font-weight="bold" fill="#1a1f36">Path B — kernel DSL: Pallas</text>
+  <rect x="30" y="226" width="130" height="52" rx="8" fill="#f1f3f5" stroke="#5b6472" stroke-width="2"/>
+  <text x="95" y="248" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">Pallas kernel</text>
+  <text x="95" y="266" font-size="11" text-anchor="middle" fill="#5b6472">Python, block specs</text>
+  <polygon points="168,252 152,244 152,260" fill="#5b6472"/>
+  <rect x="175" y="226" width="180" height="52" rx="8" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+  <text x="265" y="248" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">Mosaic lowering</text>
+  <text x="265" y="266" font-size="11" text-anchor="middle" fill="#5b6472">layouts · VMEM · DMA</text>
+  <polygon points="363,252 347,244 347,260" fill="#5b6472"/>
+  <rect x="370" y="226" width="150" height="52" rx="8" fill="#f1f3f5" stroke="#5b6472" stroke-width="2"/>
+  <text x="445" y="248" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">TPU binary</text>
+  <text x="445" y="266" font-size="11" text-anchor="middle" fill="#5b6472">same backend as A</text>
+
+  <!-- Lane 3: ours -->
+  <text x="30" y="336" font-size="15" font-weight="bold" fill="#2b8a3e">Path C — this series (educational): tile.* in Rust/Melior</text>
+  <rect x="30" y="352" width="130" height="52" rx="8" fill="#e6fcf5" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="95" y="374" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">tile.gemm</text>
+  <text x="95" y="392" font-size="11" text-anchor="middle" fill="#5b6472">portable middle</text>
+  <polygon points="168,378 152,370 152,386" fill="#2b8a3e"/>
+  <rect x="175" y="352" width="230" height="52" rx="8" fill="#e6fcf5" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="290" y="374" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">lower_tile_gemm_to_tpu (Rust)</text>
+  <text x="290" y="392" font-size="11" text-anchor="middle" fill="#5b6472">VMEM spaces · DMA staging · tile.mxm</text>
+  <polygon points="413,378 397,370 397,386" fill="#2b8a3e"/>
+  <rect x="420" y="352" width="180" height="52" rx="8" fill="#e6fcf5" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="510" y="374" font-size="12" text-anchor="middle" font-weight="bold" fill="#1a1f36">TPU-shaped IR</text>
+  <text x="510" y="392" font-size="11" text-anchor="middle" fill="#5b6472">compare with LLO/Mosaic</text>
+
+  <!-- C++ boundary note -->
+  <rect x="640" y="336" width="230" height="120" rx="10" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+  <text x="658" y="362" font-size="13" font-weight="bold" fill="#1a1f36">C++ stays in the loop:</text>
+  <text x="658" y="386" font-size="11" fill="#1a1f36">XLA optimizer &amp; LLO codegen are C++.</text>
+  <text x="658" y="404" font-size="11" fill="#1a1f36">Mosaic is C++ behind Pallas' Python.</text>
+  <text x="658" y="422" font-size="11" fill="#1a1f36">PJRT / libtpu is the C++ runtime.</text>
+  <text x="658" y="440" font-size="11" fill="#5b6472">We drive &amp; inspect — see post 1.2 §5.</text>
+
+  <text x="30" y="505" font-size="13" fill="#5b6472">Paths A and B converge below LLO/Mosaic. Path C exists to make the convergence point visible — same destination, pedagogical detour.</text>
+</svg>

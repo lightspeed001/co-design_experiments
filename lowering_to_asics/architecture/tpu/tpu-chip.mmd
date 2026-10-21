@@ -1,0 +1,9 @@
+flowchart TB
+    ICI["ICI links<br/>optical pods, up to 9,216 chips"] --- CORE
+    subgraph core ["TPU core"]
+        MXU["MXU — 128×128 systolic array<br/>bf16 / int8 / fp8"] --- VPU["VPU — 128-lane vector unit<br/>softmax, epilogues, reductions"]
+        VPU --- SCU["Scalar unit<br/>loop control, SMEM/CMEM"]
+        MXU --- SP["SparseCore<br/>embedding gather/scatter"]
+    end
+    core <-->|explicit tile DMA| VMEM["VMEM — compiler-managed scratchpad<br/>memref space 1 · tens of TB/s"]
+    VMEM <-->|double-buffered DMA| HBM["HBM — weights &amp; activations<br/>memref space 0 · ~7.4 TB/s (Ironwood class)"]

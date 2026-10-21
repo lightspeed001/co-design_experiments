@@ -1,0 +1,11 @@
+flowchart LR
+    subgraph A ["Path A — whole-graph XLA"]
+        A1["JAX / PyTorch"] --> A2["StableHLO"] --> A3["XLA optimizer<br/>layout · tiling · fusion<br/>memory plan · pipeline"] --> A4["LLO / Mosaic"] --> A5["TPU binary<br/>PJRT + libtpu"]
+    end
+    subgraph B ["Path B — kernel DSL"]
+        B1["Pallas kernel<br/>block specs"] --> B2["Mosaic lowering"] --> A5
+    end
+    subgraph C ["Path C — this series"]
+        C1["tile.gemm"] -->|lower_tile_gemm_to_tpu<br/>Rust + Melior| C2["TPU-shaped IR<br/>VMEM spaces · DMA · tile.mxm"]
+    end
+    C2 -.compare.-> A4

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="Helvetica,Arial,sans-serif">
+  <rect width="900" height="560" fill="#ffffff"/>
+  <text x="30" y="38" font-size="22" font-weight="bold" fill="#1a1f36">TPU core anatomy: the scratchpad contract (Q1 + Q2)</text>
+
+  <!-- ICI rail -->
+  <rect x="24" y="90" width="64" height="380" rx="10" fill="#e6fcf5" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="56" y="140" font-size="13" text-anchor="middle" font-weight="bold" fill="#1a1f36" transform="rotate(-90 56 140)">ICI links</text>
+  <text x="56" y="300" font-size="11" text-anchor="middle" fill="#5b6472" transform="rotate(-90 56 300)">optical pods up to 9,216 chips</text>
+
+  <!-- compute row -->
+  <rect x="120" y="90" width="230" height="110" rx="10" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="3"/>
+  <text x="235" y="125" font-size="16" text-anchor="middle" font-weight="bold" fill="#1a1f36">MXU</text>
+  <text x="235" y="148" font-size="12" text-anchor="middle" fill="#5b6472">128×128 systolic array</text>
+  <text x="235" y="168" font-size="12" text-anchor="middle" fill="#5b6472">bf16 / int8 / fp8 multiply-accumulate</text>
+  <text x="235" y="188" font-size="11" text-anchor="middle" fill="#5b6472">~2 per chip on recent generations</text>
+
+  <rect x="370" y="90" width="170" height="110" rx="10" fill="#fff4e6" stroke="#e8590c" stroke-width="2"/>
+  <text x="455" y="125" font-size="16" text-anchor="middle" font-weight="bold" fill="#1a1f36">VPU</text>
+  <text x="455" y="148" font-size="12" text-anchor="middle" fill="#5b6472">128-lane vector unit</text>
+  <text x="455" y="168" font-size="12" text-anchor="middle" fill="#5b6472">exp/sum/reductions,</text>
+  <text x="455" y="188" font-size="12" text-anchor="middle" fill="#5b6472">epilogues, softmax</text>
+
+  <rect x="560" y="90" width="140" height="110" rx="10" fill="#f1f3f5" stroke="#5b6472" stroke-width="2"/>
+  <text x="630" y="125" font-size="15" text-anchor="middle" font-weight="bold" fill="#1a1f36">Scalar unit</text>
+  <text x="630" y="148" font-size="12" text-anchor="middle" fill="#5b6472">address gen,</text>
+  <text x="630" y="168" font-size="12" text-anchor="middle" fill="#5b6472">loop control,</text>
+  <text x="630" y="188" font-size="12" text-anchor="middle" fill="#5b6472">SMEM/CMEM</text>
+
+  <rect x="720" y="90" width="150" height="110" rx="10" fill="#e6fcf5" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="795" y="125" font-size="15" text-anchor="middle" font-weight="bold" fill="#1a1f36">SparseCore</text>
+  <text x="795" y="148" font-size="12" text-anchor="middle" fill="#5b6472">embedding gather/</text>
+  <text x="795" y="168" font-size="12" text-anchor="middle" fill="#5b6472">scatter specialist</text>
+  <text x="795" y="188" font-size="11" text-anchor="middle" fill="#5b6472">TinyMoE kernel 5!</text>
+
+  <!-- arrows to VMEM -->
+  <line x1="235" y1="200" x2="235" y2="240" stroke="#e8590c" stroke-width="2"/>
+  <polygon points="235,250 228,236 242,236" fill="#e8590c"/>
+  <line x1="455" y1="200" x2="455" y2="240" stroke="#e8590c" stroke-width="2"/>
+  <polygon points="455,250 448,236 462,236" fill="#e8590c"/>
+  <text x="330" y="232" font-size="11" fill="#e8590c">tiles move on explicit schedule</text>
+
+  <!-- VMEM -->
+  <rect x="120" y="252" width="750" height="96" rx="10" fill="#fff4e6" stroke="#e8590c" stroke-width="3"/>
+  <text x="495" y="285" font-size="16" text-anchor="middle" font-weight="bold" fill="#1a1f36">VMEM — compiler-managed scratchpad</text>
+  <text x="495" y="308" font-size="12" text-anchor="middle" fill="#5b6472">tens of TB/s effective · no caches · the compiler owns every byte</text>
+  <text x="495" y="328" font-size="12" text-anchor="middle" fill="#5b6472">memory space 1 in our IR: memref&lt;128x128xf32, 1 : i32&gt;</text>
+
+  <!-- arrows to HBM -->
+  <line x1="495" y1="348" x2="495" y2="386" stroke="#e8590c" stroke-width="3"/>
+  <polygon points="495,398 486,382 504,382" fill="#e8590c"/>
+  <line x1="495" y1="470" x2="495" y2="420" stroke="#e8590c" stroke-width="3"/>
+  <polygon points="495,410 486,426 504,426" fill="#e8590c"/>
+  <text x="510" y="378" font-size="11" fill="#e8590c">tile DMA (double-buffered in production)</text>
+
+  <!-- HBM -->
+  <rect x="120" y="400" width="750" height="70" rx="10" fill="#f1f3f5" stroke="#5b6472" stroke-width="2"/>
+  <text x="495" y="430" font-size="16" text-anchor="middle" font-weight="bold" fill="#1a1f36">HBM — weights &amp; activations (memory space 0)</text>
+  <text x="495" y="454" font-size="12" text-anchor="middle" fill="#5b6472">Ironwood class: 192 GB HBM3e · ~7.4 TB/s per chip</text>
+
+  <text x="30" y="515" font-size="13" fill="#5b6472">One core's view (TPU v4–v7 generations have 1–2 TensorCores/MXUs plus SparseCores per chip). Verify per-generation counts before publishing.</text>
+</svg>

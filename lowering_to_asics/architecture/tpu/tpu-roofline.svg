@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="Helvetica,Arial,sans-serif">
+  <rect width="900" height="560" fill="#ffffff"/>
+  <text x="30" y="38" font-size="22" font-weight="bold" fill="#1a1f36">TinyMoE on the TPU roofline (Ironwood-class numbers, bf16)</text>
+
+  <!-- axes -->
+  <line x1="90" y1="470" x2="840" y2="470" stroke="#1a1f36" stroke-width="2"/>
+  <line x1="90" y1="470" x2="90" y2="80" stroke="#1a1f36" stroke-width="2"/>
+  <text x="465" y="510" font-size="14" text-anchor="middle" fill="#1a1f36">arithmetic intensity [FLOP / byte]</text>
+  <text x="40" y="280" font-size="14" text-anchor="middle" fill="#1a1f36" transform="rotate(-90 40 280)">throughput [TFLOP/s]</text>
+
+  <!-- ticks x -->
+  <g font-size="11" fill="#5b6472" text-anchor="middle">
+    <text x="120" y="490">0.1</text><text x="230" y="490">1</text><text x="360" y="490">10</text>
+    <text x="520" y="490">100</text><text x="720" y="490">1000</text>
+  </g>
+  <!-- ticks y -->
+  <g font-size="11" fill="#5b6472" text-anchor="end">
+    <text x="82" y="474">1</text><text x="82" y="374">10</text><text x="82" y="274">100</text><text x="82" y="174">1000</text>
+    <text x="82" y="114">2300</text>
+  </g>
+
+  <!-- roofs: bandwidth slope to ridge (AI ≈ 310), flat at 2307 -->
+  <polyline points="110,462 600,120 830,120" fill="none" stroke="#1a1f36" stroke-width="3"/>
+  <circle cx="600" cy="120" r="5" fill="#1a1f36"/>
+  <text x="520" y="108" font-size="12" fill="#5b6472">ridge: AI ≈ 310</text>
+  <text x="620" y="108" font-size="11" fill="#5b6472">peak ≈ 2,307 TFLOP/s bf16</text>
+  <text x="150" y="430" font-size="11" fill="#5b6472">bandwidth roof: 7.37 TB/s HBM3e</text>
+
+  <!-- kernel dots -->
+  <circle cx="140" cy="330" r="9" fill="#fff4e6" stroke="#e8590c" stroke-width="3"/>
+  <text x="157" y="327" font-size="12" fill="#1a1f36">SwiGLU (unfused: ~2 TF ceiling)</text>
+
+  <circle cx="175" cy="300" r="9" fill="#fff4e6" stroke="#e8590c" stroke-width="3"/>
+  <text x="192" y="297" font-size="12" fill="#1a1f36">RMSNorm (~7 TF ceiling)</text>
+  <text x="192" y="313" font-size="11" fill="#5b6472">fusion into GEMM epilogue → free</text>
+
+  <circle cx="155" cy="255" r="9" fill="#e6fcf5" stroke="#2b8a3e" stroke-width="3"/>
+  <text x="172" y="252" font-size="12" fill="#1a1f36">router gather</text>
+  <text x="172" y="268" font-size="11" fill="#5b6472">SparseCore's day job is this shape</text>
+
+  <circle cx="320" cy="225" r="9" fill="#fff4e6" stroke="#e8590c" stroke-width="3"/>
+  <text x="337" y="222" font-size="12" fill="#1a1f36">softmax (VPU, ~37 TF ceiling)</text>
+
+  <circle cx="520" cy="175" r="9" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="3"/>
+  <text x="537" y="172" font-size="12" fill="#1a1f36">attention QKᵀ / PV</text>
+  <text x="537" y="188" font-size="11" fill="#5b6472">flash-style tiling keeps it here</text>
+
+  <circle cx="700" cy="145" r="9" fill="#e7f5ff" stroke="#3b5bdb" stroke-width="3"/>
+  <text x="717" y="142" font-size="12" fill="#1a1f36">expert GEMM</text>
+  <text x="717" y="158" font-size="11" fill="#5b6472">MXU-sustained if the tiles divide</text>
+
+  <text x="30" y="545" font-size="12" fill="#5b6472">Ceilings = AI × 7.37 TB/s. bf16 = 2 bytes/elt. Ironwood-class spec numbers; verify per generation at publication (post 1.1 §1).</text>
+</svg>
